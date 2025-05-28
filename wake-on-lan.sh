@@ -3,10 +3,9 @@
 # Endereço MAC do computador alvo (sem dois pontos ou hífens)
 MAC_ADDRESS="d843ae6e1bf6"
 
-
-BROADCAST_ADDRESS1="10.0.0.255" # Endereço de broadcast IPv4
+BROADCAST_ADDRESS1="10.0.0.255"      # Endereço de broadcast IPv4
 BROADCAST_ADDRESS2="255.255.255.255" # Endereço de broadcast IPv4
-BROADCAST_ADDRESS3="ff02::1" # Endereço de broadcast IPv6
+BROADCAST_ADDRESS3="ff02::1"         # Endereço de broadcast IPv6
 
 PORT_DISCARD=9
 PORT_WOL=47999
@@ -25,26 +24,9 @@ echo "Pacote mágico: $MAGIC_PACKET"
 HEX_ESCAPED_MAGIC_PACKET=$(echo "$MAGIC_PACKET" | sed -e 's/../\\x&/g')
 
 echo "Pacote mágico em formato hexadecimal: $HEX_ESCAPED_MAGIC_PACKET"
+# \xFF\xFF\xFF\xFF\xFF\xFF\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6
 
 echo -ne "$HEX_ESCAPED_MAGIC_PACKET" | socat - UDP-DATAGRAM:"$BROADCAST_ADDRESS1":"$PORT_DISCARD",broadcast
 echo "Pacote mágico WoL enviado para $MAC_ADDRESS via IPv4 na porta $PORT_DISCARD via $BROADCAST_ADDRESS1"
-for i in {1..6}; do
-  echo -ne "$HEX_ESCAPED_MAGIC_PACKET" | socat - UDP-DATAGRAM:"$BROADCAST_ADDRESS1":"$PORT_WOL",broadcast
-done
-echo "Pacote mágico WoL enviado para $MAC_ADDRESS via IPv4 na porta $PORT_WOL via $BROADCAST_ADDRESS1"
 
-
-# echo -ne "$HEX_ESCAPED_MAGIC_PACKET" | socat - UDP-DATAGRAM:"$BROADCAST_ADDRESS2":"$PORT_DISCARD",broadcast
-# echo "Pacote mágico WoL enviado para $MAC_ADDRESS via IPv4 na porta $PORT_DISCARD via $BROADCAST_ADDRESS2"
-# for i in {1..6}; do
-#   echo -ne "$HEX_ESCAPED_MAGIC_PACKET" | socat - UDP-DATAGRAM:"$BROADCAST_ADDRESS2":"$PORT_WOL",broadcast
-# done
-# echo "Pacote mágico WoL enviado para $MAC_ADDRESS via IPv4 na porta $PORT_WOL via $BROADCAST_ADDRESS2"
-
-
-# echo -ne "$HEX_ESCAPED_MAGIC_PACKET" | socat - UDP-DATAGRAM:"$BROADCAST_ADDRESS3":"$PORT_DISCARD",broadcast
-# echo "Pacote mágico WoL enviado para $MAC_ADDRESS via IPv4 na porta $PORT_DISCARD via $BROADCAST_ADDRESS3"
-# for i in {1..6}; do
-#   echo -ne "$HEX_ESCAPED_MAGIC_PACKET" | socat - UDP-DATAGRAM:"$BROADCAST_ADDRESS3":"$PORT_WOL",broadcast
-# done
-# echo "Pacote mágico WoL enviado para $MAC_ADDRESS via IPv4 na porta $PORT_WOL via $BROADCAST_ADDRESS3"
+# echo -ne "\xFF\xFF\xFF\xFF\xFF\xFF\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6\xd8\x43\xae\x6e\x1b\xf6" | socat - UDP-DATAGRAM:10.0.0.255:9,broadcast
